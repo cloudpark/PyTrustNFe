@@ -50,4 +50,4 @@ class Assinatura(object):
             self.cert_pem, consts.KeyDataFormatPem)
 
         ctx.sign(signature_node)
-        return etree.tostring(template, encoding=str)
+        return etree.tostring(template) #, encoding=str)

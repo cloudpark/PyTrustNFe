@@ -13,8 +13,8 @@ def normalize_str(string):
     Remove special characters and strip spaces
     """
     if string:
-        if not isinstance(string, str):
-            string = str(string, 'utf-8', 'replace')
+        #if not isinstance(string, str):
+        #    string = str(string, 'utf-8', 'replace')
 
         string = string.encode('utf-8')
         return normalize(
@@ -24,8 +24,8 @@ def normalize_str(string):
 
 def strip_line_feed(string):
     if string:
-        if not isinstance(string, str):
-            string = str(string, 'utf-8', 'replace')
+        #if not isinstance(string, str):
+        #    string = str(string, 'utf-8', 'replace')
         remap = {
             ord('\t'): ' ',
             ord('\n'): ' ',

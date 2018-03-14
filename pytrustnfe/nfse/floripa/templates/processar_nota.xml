@@ -12,7 +12,6 @@
   <emailTomador>{{ rps.tomador.email }}</emailTomador>
   <identificacao>{{ rps.numero }}</identificacao>
   <identificacaoTomador>{{ rps.tomador.cnpj_cpf }}</identificacaoTomador>
-  <inscricaoMunicipalTomador>{{ rps.tomador.inscricao_municipal }}</inscricaoMunicipalTomador>
   <itensServico>
     {% for item in rps.itens_servico -%}
     <itemServico>

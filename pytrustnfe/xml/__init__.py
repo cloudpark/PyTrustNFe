@@ -54,7 +54,7 @@ def render_xml(path, template_name, remove_empty, **nfe):
     for element in root.iter("*"):  # remove espaços em branco
         if element.text is not None and not element.text.strip():
             element.text = None
-    return etree.tostring(root, encoding=str)
+    return etree.tostring(root) # , encoding=str
 
 
 def sanitize_response(response):
