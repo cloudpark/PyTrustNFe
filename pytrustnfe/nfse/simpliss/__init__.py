@@ -19,7 +19,7 @@ def _render_xml(certificado, method, **kwargs):
     xml_send = render_xml(path, '%s.xml' % method, True, **kwargs)
     xml_send = etree.tostring(xml_send)
 
-    return xml_send
+    return xml_send.encode('utf-8')
 
 
 def _validate(method, xml):
@@ -35,11 +35,10 @@ def _validate(method, xml):
 
 def _send(method, **kwargs):
     if kwargs['ambiente'] == 'producao':
-        base_url = 'http://sistemas.pmp.sp.gov.br/semfi/simpliss/ws_nfse/nfseservice.svc'  # noqa
+        base_url = 'http://wsbalneariocamboriu.simplissweb.com.br/nfseservice.svc'  # noqa
     else:
         base_url = 'http://wshomologacao.simplissweb.com.br/nfseservice.svc'  # noqa
 
-    base_url = 'http://wshomologacao.simplissweb.com.br/nfseservice.svc'
     xml_send = kwargs["xml"].replace('<?xml version="1.0"?>', '')
     path = os.path.join(os.path.dirname(__file__), 'templates')
     soap = render_xml(path, 'SoapRequest.xml', False, soap_body=xml_send)
