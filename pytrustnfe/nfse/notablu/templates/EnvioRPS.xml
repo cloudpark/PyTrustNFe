@@ -12,10 +12,10 @@
         <SerieRPS>{{ rps.serie }}</SerieRPS>
         <NumeroRPS>{{ rps.numero }}</NumeroRPS>
     </ChaveRPS>
-    <TipoRPS>RPS-M</TipoRPS>
+    <TipoRPS>RPS</TipoRPS>
     <DataEmissao>{{ rps.data_emissao }}</DataEmissao>
-    <StatusRPS>N</StatusRPS>
-    <TributacaoRPS>T</TributacaoRPS>
+    <StatusRPS>{{ rps.status }}</StatusRPS>
+    <TributacaoRPS>{{ rps.tributacao_rps }}</TributacaoRPS>
     <ValorServicos>{{ nfse.total_servicos }}</ValorServicos>
     <ValorDeducoes>{{ nfse.total_deducoes }}</ValorDeducoes>
     <ValorPIS>{{ rps.valor_pis }}</ValorPIS>
