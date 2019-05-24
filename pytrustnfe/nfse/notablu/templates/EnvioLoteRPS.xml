@@ -6,7 +6,7 @@
     <transacao>false</transacao>
     <dtInicio>{{ nfse.data_inicio }}</dtInicio>
     <dtFim>{{ nfse.data_fim }}</dtFim>
-    <QtdRPS>1</QtdRPS>
+    <QtdRPS>{{ nfse.lista_rps|length }}</QtdRPS>
     <ValorTotalServicos>{{ nfse.total_servicos }}</ValorTotalServicos>
     <ValorTotalDeducoes>{{ nfse.total_deducoes }}</ValorTotalDeducoes>
   </Cabecalho>
@@ -20,7 +20,7 @@
     </ChaveRPS>
     <TipoRPS>{{ rps.tipo_rps | default('RPS') }}</TipoRPS>
     <DataEmissao>{{ rps.data_emissao }}</DataEmissao>
-    <StatusRPS>N</StatusRPS>
+    <StatusRPS>{{ rps.status }}</StatusRPS>
     <TributacaoRPS>{{ rps.tributacao_rps | default('T') }}</TributacaoRPS>
     <ValorServicos>{{ rps.valor_servico }}</ValorServicos>
     <ValorDeducoes>{{ rps.valor_deducao }}</ValorDeducoes>
