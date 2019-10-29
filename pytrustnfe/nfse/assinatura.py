@@ -5,6 +5,8 @@
 from lxml import etree
 import xmlsec
 import os.path
+import signxml
+from signxml import XMLSigner
 
 consts = xmlsec.constants
 
@@ -51,3 +53,33 @@ class Assinatura(object):
 
         ctx.sign(signature_node)
         return etree.tostring(template) #, encoding=str)
+
+
+class Signer(object):
+
+    def sign_xml(self, xml, reference, cert, key):
+        xml_element = etree.fromstring(xml)
+        for element in xml_element.iter("*"):
+            if element.text is not None and not element.text.strip():
+                element.text = None
+
+        signer = XMLSigner(
+            method=signxml.methods.enveloped, signature_algorithm="rsa-sha1",
+            digest_algorithm='sha1',
+            c14n_algorithm='http://www.w3.org/TR/2001/REC-xml-c14n-20010315')
+
+        ns = {}
+        ns[None] = signer.namespaces['ds']
+        signer.namespaces = ns
+
+        ref_uri = ('#%s' % reference) if reference else None
+        signed_root = signer.sign(
+            xml_element, key=key.encode(), cert=cert.encode(),
+            reference_uri=ref_uri)
+        if reference:
+            element_signed = signed_root.find(".//*[@Id='%s']" % reference)
+            signature = signed_root.find(".//{http://www.w3.org/2000/09/xmldsig#}Signature")
+            if element_signed is not None and signature is not None:
+                parent = element_signed.getparent()
+                parent.append(signature)
+        return etree.tostring(signed_root).decode("utf-8")

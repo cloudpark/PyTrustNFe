@@ -1,0 +1,52 @@
+<GerarNfseEnvio  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns="http://www.abrasf.org.br/nfse.xsd">
+    <Rps>
+        <InfDeclaracaoPrestacaoServico Id="L1">
+            <Rps Id="1">
+                <IdentificacaoRps>
+                    <Numero>{{ rps.numero }}</Numero>
+                    <Serie>{{ rps.serie }}</Serie>
+                    <Tipo>1</Tipo>
+                </IdentificacaoRps>
+                <DataEmissao>{{rps.data_emissao}}</DataEmissao>
+                <Status>{{ rps.status }}</Status>
+            </Rps>
+            <Competencia>{{rps.data_emissao}}</Competencia>
+            <Servico>
+                <Valores>
+                    <ValorServicos>{{rps.valor_servico}}</ValorServicos>
+                    <ValorDeducoes>{{rps.valor_deducao}}</ValorDeducoes>
+                    <ValorPis>{{rps.valor_pis}}</ValorPis>
+                    <ValorCofins>{{rps.valor_cofins}}</ValorCofins>
+                    <ValorInss>{{rps.valor_inss}}</ValorInss>
+                    <ValorIr>{{rps.valor_ir}}</ValorIr>
+                    <ValorCsll>{{rps.valor_csll}}</ValorCsll>
+                    <OutrasRetencoes>{{rps.outras_retencoes}}</OutrasRetencoes>
+                    <ValTotTributos>{{rps.valor_deducao}}</ValTotTributos>
+                    <ValorIss>{{rps.valor_iss}}</ValorIss>
+                    <Aliquota>0.0000</Aliquota>
+                    <DescontoIncondicionado>{{rps.desconto_incondicionado}}</DescontoIncondicionado>
+                    <DescontoCondicionado>{{rps.desconto_condicionado}}</DescontoCondicionado>
+                </Valores>
+                <IssRetido>{{rps.iss_retido}}</IssRetido>
+                <ItemListaServico>{{ rps.codigo_servico }}</ItemListaServico>
+                <CodigoCnae>{{ rps.cnae }}</CodigoCnae>
+                <CodigoTributacaoMunicipio>11.01</CodigoTributacaoMunicipio>
+                <Discriminacao>{{ rps.descricao }}</Discriminacao>
+                <CodigoMunicipio>{{ rps.codigo_municipio }}</CodigoMunicipio>
+                <CodigoPais>1058</CodigoPais>
+                <MunicipioIncidencia>4202404</MunicipioIncidencia>
+                <ExigibilidadeISS>{{rps.exigibilidade_iss}}</ExigibilidadeISS>
+            </Servico>
+            <Prestador>
+                <CpfCnpj>
+                    <Cnpj>{{rps.prestador.cnpj}}</Cnpj>
+                </CpfCnpj>
+                <InscricaoMunicipal>{{rps.prestador.inscricao_municipal}}</InscricaoMunicipal>
+            </Prestador>
+            <RegimeEspecialTributacao>{{rps.regime_tributacao}}</RegimeEspecialTributacao>
+            <OptanteSimplesNacional>{{rps.optante_simples}}</OptanteSimplesNacional>
+            <IncentivoFiscal>{{rps.incentivo_fiscal}}</IncentivoFiscal>
+        </InfDeclaracaoPrestacaoServico>
+    </Rps>
+</GerarNfseEnvio>
