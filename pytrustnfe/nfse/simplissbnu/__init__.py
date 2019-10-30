@@ -18,7 +18,7 @@ def _render_xml(method, **kwargs):
     return xml_send
 
 
-def _send(certificate, method, **kwargs):
+def _send(certificate, method, retry=0, **kwargs):
     try:
         cert_content, key_content = extract_cert_and_key_from_pfx(certificate.pfx, certificate.password)
         cert_filename, key_filename = save_cert_key(cert_content, key_content)
@@ -47,27 +47,16 @@ def _send(certificate, method, **kwargs):
         response = session.post(URL, data=data, headers=HEADERS)
         print(response.status_code)
         print(response.text)
+        if response.status_code != 200 or "E900" in response.text and retry <= 2:
+            retry = retry + 1
+            _send(certificate, method, retry, **kwargs)
         return True
     except Exception as e:
         print(e)
-        return {
-            'sent_xml': body,
-            'received_xml': "", # s e.fault.faultstring,
-            'object': None
-        }
         return False
-
-
-    #response = response.encode('utf-8')
-    #response, obj = sanitize_response(response)
-    #return {
-#        'sent_xml': body,
-#        'received_xml': response,
-#        'object': obj
-#    }
 
 
 def gerar_nfse(certificate, **kwargs):
     if "xml" not in kwargs:
         kwargs['xml'] = _render_xml('GerarNfse', **kwargs)
-    return _send(certificate, 'GerarNfse', **kwargs)
+    return _send(certificate, 'GerarNfse', 0, **kwargs)

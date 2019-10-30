@@ -31,7 +31,7 @@
                 <IssRetido>{{rps.iss_retido}}</IssRetido>
                 <ItemListaServico>{{ rps.codigo_servico }}</ItemListaServico>
                 <CodigoCnae>{{ rps.cnae }}</CodigoCnae>
-                <CodigoTributacaoMunicipio>11.01</CodigoTributacaoMunicipio>
+                <CodigoTributacaoMunicipio>{{ rps.codigo_servico }}</CodigoTributacaoMunicipio>
                 <Discriminacao>{{ rps.descricao }}</Discriminacao>
                 <CodigoMunicipio>{{ rps.codigo_municipio }}</CodigoMunicipio>
                 <CodigoPais>1058</CodigoPais>
