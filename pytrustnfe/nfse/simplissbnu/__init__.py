@@ -47,13 +47,14 @@ def _send(certificate, method, retry=0, **kwargs):
         response = session.post(URL, data=data, headers=HEADERS)
         print(response.status_code)
         print(response.text)
-        if response.status_code != 200 or "E900" in response.text and retry <= 2:
+        if retry <= 2:
             retry = retry + 1
             _send(certificate, method, retry, **kwargs)
-        return True
+        else:
+            raise Exception("Erro ao exportar a RPS. %d - %s" % (response.status_code, response.text))
     except Exception as e:
         print(e)
-        return False
+        raise e
 
 
 def gerar_nfse(certificate, **kwargs):
