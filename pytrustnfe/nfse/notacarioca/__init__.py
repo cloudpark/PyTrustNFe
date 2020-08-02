@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
 
-import suds
+from suds import WebFault
 from lxml import etree
 from pytrustnfe.certificado import extract_cert_and_key_from_pfx, save_cert_key
 from pytrustnfe.client import get_authenticated_client
 from pytrustnfe.xml import render_xml, sanitize_response
 
 
-def _render_xml(certificado, method, **kwargs):
+def _render_xml(method, **kwargs):
     path = os.path.join(os.path.dirname(__file__), 'templates')
     xml_send = render_xml(path, '%s.xml' % method, True, **kwargs)
     xml_send = etree.tostring(xml_send)
@@ -30,7 +30,7 @@ def _validate(method, xml):
 def _send(certificado, method, **kwargs):
     path = os.path.join(os.path.dirname(__file__), 'templates')
     if kwargs['ambiente'] == 'producao':
-        url = 'https://nfse.recife.pe.gov.br/WSNacional/nfse_v01.asmx?wsdl'
+        url = 'https://notacarioca.rio.gov.br/WSNacional/nfse.asmx?wsdl'
     else:
         url = ''
 
@@ -41,7 +41,7 @@ def _send(certificado, method, **kwargs):
 
     try:
         response = getattr(client.service, method)(xml_send.decode("utf-8"))
-    except suds.WebFault as e:
+    except WebFault as e:
         return {
             'sent_xml': xml_send,
             'received_xml': e.fault.faultstring,
@@ -56,31 +56,31 @@ def _send(certificado, method, **kwargs):
     }
 
 
-def xml_recepcionar_lote_rps(certificado, **kwargs):
-    return _render_xml(certificado, 'RecepcionarLoteRps', **kwargs)
+def xml_recepcionar_lote_rps(**kwargs):
+    return _render_xml('RecepcionarLoteRps', **kwargs)
 
 
 def recepcionar_lote_rps(certificado, **kwargs):
     if "xml" not in kwargs:
-        kwargs['xml'] = xml_recepcionar_lote_rps(certificado, **kwargs)
+        kwargs['xml'] = xml_recepcionar_lote_rps(**kwargs)
     return _send(certificado, 'RecepcionarLoteRps', **kwargs)
 
 
-def xml_consultar_situacao_lote(certificado, **kwargs):
-    return _render_xml(certificado, 'ConsultarSituacaoLoteRps', **kwargs)
+def xml_consultar_situacao_lote(**kwargs):
+    return _render_xml('ConsultarSituacaoLoteRps', **kwargs)
 
 
 def consultar_situacao_lote(certificado, **kwargs):
     if "xml" not in kwargs:
-        kwargs['xml'] = xml_consultar_situacao_lote(certificado, **kwargs)
+        kwargs['xml'] = xml_consultar_situacao_lote(**kwargs)
     return _send(certificado, 'ConsultarSituacaoLoteRps', **kwargs)
 
 
-def xml_consultar_lote_rps(certificado, **kwargs):
-    return _render_xml(certificado, 'ConsultarLoteRps', **kwargs)
+def xml_consultar_lote_rps(**kwargs):
+    return _render_xml('ConsultarLoteRps', **kwargs)
 
 
 def consultar_lote_rps(certificado, **kwargs):
     if "xml" not in kwargs:
-        kwargs['xml'] = xml_consultar_lote_rps(certificado, **kwargs)
+        kwargs['xml'] = xml_consultar_lote_rps(**kwargs)
     return _send(certificado, 'ConsultarLoteRps', **kwargs)
