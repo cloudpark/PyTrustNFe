@@ -47,11 +47,12 @@ def _send(certificate, method, retry=0, **kwargs):
         response = session.post(URL, data=data, headers=HEADERS)
         print(response.status_code)
         print(response.text)
-        if retry <= 2:
-            retry = retry + 1
-            _send(certificate, method, retry, **kwargs)
-        else:
-            raise Exception("Erro ao exportar a RPS. %d - %s" % (response.status_code, response.text))
+        if response.status_code != 200 or "E900" in response.text:
+            if retry <= 2:
+                retry = retry + 1
+                _send(certificate, method, retry, **kwargs)
+            else:
+                raise Exception("Erro ao exportar a RPS. %d - %s" % (response.status_code, response.text))
     except Exception as e:
         print(e)
         raise e
