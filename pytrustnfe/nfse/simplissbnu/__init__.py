@@ -62,3 +62,19 @@ def gerar_nfse(certificate, **kwargs):
     if "xml" not in kwargs:
         kwargs['xml'] = _render_xml('GerarNfse', **kwargs)
     return _send(certificate, 'GerarNfse', 0, **kwargs)
+
+
+def consultar_lote_rps(certificate, **kwargs):
+    if "xml" not in kwargs:
+        kwargs['xml'] = _render_xml('ConsultarLoteRps', **kwargs)
+    return _send(certificate, 'ConsultarLoteRps', 0, **kwargs)
+
+
+def xml_cancelar_nfse(**kwargs):
+    return _render_xml('CancelarNfse', **kwargs)
+
+
+def cancelar_nfse(certificado, **kwargs):
+    if "xml" not in kwargs:
+        kwargs['xml'] = xml_cancelar_nfse(**kwargs)
+    return _send(certificado, 'CancelarNfse', **kwargs)
