@@ -86,11 +86,11 @@ def consultar_lote_rps(certificado, **kwargs):
     return _send(certificado, 'ConsultarLoteRps', **kwargs)
 
 
-def xml_cancelar_nfse(**kwargs):
-    return _render_xml('CancelarNfse', **kwargs)
+def xml_cancelar_nfse(certificado, **kwargs):
+    return _render_xml(certificado, 'CancelarNfse', **kwargs)
 
 
 def cancelar_nfse(certificado, **kwargs):
     if "xml" not in kwargs:
-        kwargs['xml'] = xml_cancelar_nfse(**kwargs)
+        kwargs['xml'] = xml_cancelar_nfse(certificado, **kwargs)
     return _send(certificado, 'CancelarNfse', **kwargs)
