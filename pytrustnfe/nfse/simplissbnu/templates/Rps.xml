@@ -1,0 +1,77 @@
+<Rps>
+    <InfRps Id="rps{{numero}}">
+        <IdentificacaoRps>
+            <Numero>{{ numero }}</Numero>
+            <Serie>{{ serie }}</Serie>
+            <Tipo>{{ tipo_rps }}</Tipo>
+        </IdentificacaoRps>
+        <DataEmissao>{{ data_emissao }}</DataEmissao>
+        <NaturezaOperacao>{{ natureza_operacao }}</NaturezaOperacao>
+        <OptanteSimplesNacional>{{ optante_simples }}</OptanteSimplesNacional>
+        <IncentivadorCultural>{{ incentivador_cultural }}</IncentivadorCultural>
+        <Status>{{ status }}</Status>
+        <Servico>
+            <Valores>
+                <ValorServicos>{{ valor_servico }}</ValorServicos>
+                <ValorDeducoes>{{ valor_deducao }}</ValorDeducoes>
+                <ValorPis>{{ valor_pis }}</ValorPis>
+                <ValorCofins>{{ valor_cofins }}</ValorCofins>
+                <ValorInss>{{ valor_inss }}</ValorInss>
+                <ValorIr>{{ valor_ir }}</ValorIr>
+                <ValorCsll>{{ valor_csll }}</ValorCsll>
+                <IssRetido>{{ iss_retido }}</IssRetido>
+                <ValorIss>{{ valor_iss }}</ValorIss>
+                <ValorIssRetido>{{ valor_iss_retido }}</ValorIssRetido>
+                <OutrasRetencoes>{{ outras_retencoes }}</OutrasRetencoes>
+                <BaseCalculo>{{ base_calculo }}</BaseCalculo>
+                <Aliquota>{{ aliquota_issqn }}</Aliquota>
+                <ValorLiquidoNfse>{{ valor_liquido_nfse }}</ValorLiquidoNfse>
+                <DescontoIncondicionado>{{ desconto_incondicionado }}</DescontoIncondicionado>
+                <DescontoCondicionado>{{ desconto_condicionado }}</DescontoCondicionado>
+            </Valores>
+            <ItemListaServico>{{ codigo_servico }}</ItemListaServico>
+            <CodigoTributacaoMunicipio>{{ codigo_tributacao }}</CodigoTributacaoMunicipio>
+            <Discriminacao>{{ descricao }}</Discriminacao>
+            <CodigoMunicipio>{{ codigo_municipio }}</CodigoMunicipio>
+        </Servico>
+        <Prestador>
+            <Cnpj>{{ prestador.cnpj }}</Cnpj>
+            <InscricaoMunicipal>{{ prestador.inscricao_municipal }}</InscricaoMunicipal>
+        </Prestador>
+        <Tomador>
+            <IdentificacaoTomador>
+                <CpfCnpj>
+                    {% if tomador.cnpj_cpf|length == 14  %}
+                    <Cnpj>{{ tomador.cnpj_cpf }}</Cnpj>
+                    {% endif %}
+                    {% if tomador.cnpj_cpf|length == 11  %}
+                    <Cpf>{{ tomador.cnpj_cpf }}</Cpf>
+                    {% endif %}
+                </CpfCnpj>
+                {% if tomador.inscricao_municipal|length > 0 %}
+                <InscricaoMunicipal>{{ tomador.inscricao_municipal }}</InscricaoMunicipal>
+                {% endif %}
+            </IdentificacaoTomador>
+            <RazaoSocial>{{ tomador.razao_social }}</RazaoSocial>
+            {% if tomador.cep|length > 0 %}
+            <Endereco>
+                <Endereco>{{ tomador.logradouro }}</Endereco>
+                <Numero>{{ tomador.numero }}</Numero>
+                <Complemento>{{ tomador.complemento }}</Complemento>
+                <Bairro>{{ tomador.bairro }}</Bairro>
+                <CodigoMunicipio>{{ tomador.cidade }}</CodigoMunicipio>
+                <Uf>{{ tomador.uf }}</Uf>
+                <Cep>{{ tomador.cep }}</Cep>
+            </Endereco>
+            {% endif %}
+            <Contato>
+                {% if tomador.telefone|length > 0 %}
+                <Telefone>{{ tomador.telefone }}</Telefone>
+                {% endif %}
+                {% if tomador.email|length >0 %}
+                <Email>{{ tomador.email }}</Email>
+                {% endif %}
+            </Contato>
+        </Tomador>
+    </InfRps>
+</Rps>
