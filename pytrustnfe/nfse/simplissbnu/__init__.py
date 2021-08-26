@@ -32,20 +32,15 @@ def _send(certificate, method, retry=0, **kwargs):
         if method in ["GerarNfse", "RecepcionarLoteRps"]:
             signer = Signer()
             if method == "RecepcionarLoteRps":
+                # Assina cada RPS e adiciona no lote
                 for rps in kwargs["nfse"]["lista_rps"]:
-                    print(rps)
                     body_rps = render_xml(path, 'Rps.xml', False, **rps)
-                    print(body_rps)
                     body_rps_signed = signer.sign_xml(body_rps, f'rps{rps["numero"]}', cert_content, key_content)
-                    print(body_rps_signed)
-                    print("--------------------------------")
-                    print(body)
                     body = body.replace(f"rps_{rps['numero']}_rps", body_rps_signed)
-                    print(body)
+                body = body.replace("\n", "")
 
+            # Assina o lote
             body = signer.sign_xml(body.encode('utf-8'), 'L1', cert_content, key_content)
-#        else:
-#            body = body.decode("utf-8")
 
         data = f'<?xml version="1.0" encoding="UTF-8"?>' \
                '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" ' \
@@ -61,7 +56,6 @@ def _send(certificate, method, retry=0, **kwargs):
                                             '</nfseCabecMsg><nfseDadosMsg><![CDATA[' + body + ']]></nfseDadosMsg></ns1:' + method + 'Request></ns0:Body>' \
                                                                                                                                     '</SOAP-ENV:Envelope>'
         data = data.encode()
-
         print(data)
         session = requests.Session()
         session.cert = (cert_filename, key_filename)
