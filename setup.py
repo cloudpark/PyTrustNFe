@@ -53,9 +53,5 @@ later (LGPLv2+)',
         'lxml >= 3.5.0, < 5',
         'suds-jurko >= 0.6',
         'suds-jurko-requests >= 1.2',
-        'reportlab'
-    ],
-    tests_require=[
-        'pytest',
     ],
 )

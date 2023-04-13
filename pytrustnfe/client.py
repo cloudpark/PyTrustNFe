@@ -6,7 +6,10 @@ import urllib3
 import requests
 import suds.client
 import suds_requests
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from urllib3.exceptions import InsecureRequestWarning
+
+
+# from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 
 def get_authenticated_client(base_url, cert, key):
