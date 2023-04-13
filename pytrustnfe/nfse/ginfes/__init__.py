@@ -7,7 +7,7 @@ import suds
 from pytrustnfe.xml import render_xml, sanitize_response
 from pytrustnfe.client import get_authenticated_client
 from pytrustnfe.certificado import extract_cert_and_key_from_pfx, save_cert_key
-from pytrustnfe.nfe.assinatura import Assinatura
+# from pytrustnfe.nfe.assinatura import Assinatura
 
 
 def _render(certificado, method, **kwargs):
@@ -18,8 +18,8 @@ def _render(certificado, method, **kwargs):
     if method == 'RecepcionarLoteRpsV3':
         reference = 'rps%s' % kwargs['nfse']['lista_rps'][0]['numero']
 
-    signer = Assinatura(certificado.pfx, certificado.password)
-    xml_send = signer.assina_xml(xml_send, reference)
+    # signer = Assinatura(certificado.pfx, certificado.password)
+    # xml_send = signer.assina_xml(xml_send, reference)
     return xml_send
 
 

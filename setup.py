@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 
-VERSION = "0.9.12"
+VERSION = "0.9.13"
 
 
 setup(
@@ -48,10 +48,10 @@ later (LGPLv2+)',
     description='PyTrustNFe é uma biblioteca para envio de NF-e',
     long_description=open('README.md', 'r').read(),
     install_requires=[
-        'Jinja2 >= 2.8',
-        'signxml >= 2.4.0',
-        'lxml >= 3.5.0, < 5',
-        'suds-jurko >= 0.6',
-        'suds-jurko-requests >= 1.2',
+        'Jinja2 == 3.1.2',
+        'signxml == 3.2.0',
+        'lxml == 4.9.2',
+        'suds-jurko == 0.6',
+        'suds-jurko-requests == 1.2',
     ],
 )
