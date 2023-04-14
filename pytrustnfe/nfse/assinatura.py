@@ -55,6 +55,11 @@ class Assinatura(object):
         return etree.tostring(template) #, encoding=str)
 
 
+class XMLSignerWithSHA1(XMLSigner):
+    def check_deprecated_methods(self):
+        pass
+
+
 class Signer(object):
 
     def sign_xml(self, xml, reference, cert, key):
@@ -63,7 +68,7 @@ class Signer(object):
             if element.text is not None and not element.text.strip():
                 element.text = None
 
-        signer = XMLSigner(
+        signer = XMLSignerWithSHA1(
             method=signxml.methods.enveloped, signature_algorithm="rsa-sha1",
             digest_algorithm='sha1',
             c14n_algorithm='http://www.w3.org/TR/2001/REC-xml-c14n-20010315')
