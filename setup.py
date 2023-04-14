@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 
-VERSION = "0.9.13"
+VERSION = "0.9.14"
 
 
 setup(
@@ -26,8 +26,6 @@ later (LGPLv2+)',
     ],
     packages=find_packages(exclude=['*test*']),
     package_data={'pytrustnfe': [
-        'nfe/templates/*xml',
-        'nfe/fonts/*ttf',
         'nfse/paulistana/templates/*xml',
         'nfse/dsf/templates/*xml',
         'nfse/ginfes/templates/*xml',
