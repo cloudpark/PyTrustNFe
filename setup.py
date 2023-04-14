@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 
-VERSION = "0.9.14"
+VERSION = "0.9.15"
 
 
 setup(
@@ -51,5 +51,6 @@ later (LGPLv2+)',
         'lxml == 4.9.2',
         'suds-jurko == 0.6',
         'suds-jurko-requests == 1.2',
+        'xmlsec == 1.3.13'
     ],
 )
