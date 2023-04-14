@@ -24,7 +24,7 @@
                     <OutrasRetencoes>{{rps.outras_retencoes}}</OutrasRetencoes>
                     <ValTotTributos>{{rps.valor_deducao}}</ValTotTributos>
                     <ValorIss>{{rps.valor_iss}}</ValorIss>
-                    <Aliquota>0.0000</Aliquota>
+                    <Aliquota>{{rps.aliquota_issqn}}</Aliquota>
                     <DescontoIncondicionado>{{rps.desconto_incondicionado}}</DescontoIncondicionado>
                     <DescontoCondicionado>{{rps.desconto_condicionado}}</DescontoCondicionado>
                 </Valores>
