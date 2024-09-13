@@ -3,12 +3,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from lxml import etree
-import xmlsec
 import os.path
 import signxml
 from signxml import XMLSigner
 
-consts = xmlsec.constants
 
 NAMESPACE_SIG = 'http://www.w3.org/2000/09/xmldsig#'
 
@@ -25,6 +23,8 @@ class Assinatura(object):
             raise Exception('Caminho do certificado não existe.')
 
     def assina_xml(self, xml, reference):
+        import xmlsec
+        consts = xmlsec.constants
         self._checar_certificado()
         template = etree.fromstring(xml)
 
