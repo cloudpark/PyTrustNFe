@@ -29,7 +29,7 @@ def _send(certificate, method, retry=0, **kwargs):
         path = os.path.join(os.path.dirname(__file__), 'templates')
         body = render_xml(path, '%s.xml' % method, False, **kwargs).decode("utf-8")
         print(body)
-        if method in ["GerarNfse", "RecepcionarLoteRps"]:
+        if method in ["GerarNfse", "RecepcionarLoteRps", "CancelarNfse"]:
             signer = Signer()
             if method == "RecepcionarLoteRps":
                 # Assina cada RPS e adiciona no lote
@@ -59,7 +59,7 @@ def _send(certificate, method, retry=0, **kwargs):
         print(data)
         session = requests.Session()
         session.cert = (cert_filename, key_filename)
-        response = session.post(URL, data=data, headers=_get_headers(method))
+        response = session.post(URL, data=data, headers=_get_headers(method), timeout=30)
         print(response.status_code)
         if response.status_code != 200 or "E900" in response.text:
             error = "Erro ao exportar a RPS. %d - %s" % (response.status_code, response.text)
@@ -77,6 +77,8 @@ def _send(certificate, method, retry=0, **kwargs):
                 response, obj = sanitize_response(str(obj.Body.ConsultarLoteRpsResponse['outputXML']))
             elif method == "GerarNfse":
                 response, obj = sanitize_response(str(obj.Body.GerarNfseResponse['outputXML']))
+            elif method == "CancelarNfse":
+                response, obj = sanitize_response(str(obj.Body.CancelarNfseResponse['outputXML']))
             return {
                 'sent_xml': data,
                 'received_xml': response,
@@ -103,3 +105,9 @@ def consultar_lote_rps(certificado, **kwargs):
     if "xml" not in kwargs:
         kwargs['xml'] = _render_xml('ConsultarLoteRps', **kwargs)
     return _send(certificado, 'ConsultarLoteRps', 2, **kwargs)
+
+
+def cancelar_nfse(certificate, **kwargs):
+    if "xml" not in kwargs:
+        kwargs['xml'] = _render_xml('CancelarNfse', **kwargs)
+    return _send(certificate, 'CancelarNfse', 0, **kwargs)
