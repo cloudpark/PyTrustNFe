@@ -79,6 +79,8 @@ def _send(certificate, method, retry=0, **kwargs):
                 response, obj = sanitize_response(str(obj.Body.GerarNfseResponse['outputXML']))
             elif method == "CancelarNfse":
                 response, obj = sanitize_response(str(obj.Body.CancelarNfseResponse['outputXML']))
+            elif method == "ConsultarNfseFaixa":
+                response, obj = sanitize_response(str(obj.Body.ConsultarNfseFaixaResponse['outputXML']))
             return {
                 'sent_xml': data,
                 'received_xml': response,
@@ -111,3 +113,9 @@ def cancelar_nfse(certificate, **kwargs):
     if "xml" not in kwargs:
         kwargs['xml'] = _render_xml('CancelarNfse', **kwargs)
     return _send(certificate, 'CancelarNfse', 0, **kwargs)
+
+
+def consultar_nfse(certificate, **kwargs):
+    if "xml" not in kwargs:
+        kwargs['xml'] = _render_xml('ConsultarNfseFaixa', **kwargs)
+    return _send(certificate, 'ConsultarNfseFaixa', 0, **kwargs)
