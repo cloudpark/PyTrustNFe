@@ -1,0 +1,75 @@
+<GerarNfseEnvio   xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.abrasf.org.br/nfse.xsd">
+    <Rps>
+        <InfDeclaracaoPrestacaoServico Id="R1">
+            <Rps>
+                <IdentificacaoRps>
+                    <Numero>{{ numero }}</Numero>
+                    <Serie>{{ serie }}</Serie>
+                    <Tipo>1</Tipo>
+                </IdentificacaoRps>
+                <DataEmissao>{{data_emissao}}</DataEmissao>
+                <Status>{{ status }}</Status>
+            </Rps>
+            <Competencia>{{data_emissao}}</Competencia>
+            <Servico>
+                <Valores>
+                    <ValorServicos>{{valor_servico}}</ValorServicos>
+                </Valores>
+                <IssRetido>{{iss_retido}}</IssRetido>
+                <ItemListaServico>{{codigo_servico}}</ItemListaServico>
+                <CodigoCnae>{{ cnae }}</CodigoCnae>
+                <CodigoTributacaoMunicipio>{{codigo_tributacao}}</CodigoTributacaoMunicipio>
+                <Discriminacao>{{descricao}}</Discriminacao>
+                <CodigoMunicipio>{{ codigo_municipio }}</CodigoMunicipio>
+                <ExigibilidadeISS>{{exigibilidade_iss}}</ExigibilidadeISS>
+                <MunicipioIncidencia>2800308</MunicipioIncidencia>
+            </Servico>
+            <Prestador>
+                <CpfCnpj>
+                    <Cnpj>{{prestador.cnpj}}</Cnpj>
+                </CpfCnpj>
+                <InscricaoMunicipal>{{prestador.inscricao_municipal}}</InscricaoMunicipal>
+            </Prestador>
+            {% if tomador is defined -%}
+            <Tomador>
+                 {% if tomador.cnpj_cpf|length > 0  %}
+                 <IdentificacaoTomador>
+                     <CpfCnpj>
+                         {% if tomador.cnpj_cpf|length == 14  %}
+                         <Cnpj>{{ tomador.cnpj_cpf }}</Cnpj>
+                         {% endif %}
+                         {% if tomador.cnpj_cpf|length == 11  %}
+                         <Cpf>{{ tomador.cnpj_cpf }}</Cpf>
+                         {% endif %}
+                     </CpfCnpj>
+                 </IdentificacaoTomador>
+                 {% endif %}
+                 <RazaoSocial>{{ tomador.razao_social }}</RazaoSocial>
+                 {% if tomador.cidade is defined -%}
+                 <Endereco>
+                     <Endereco>{{ tomador.logradouro }}</Endereco>
+                     <Numero>{{ tomador.numero }}</Numero>
+                     <Complemento>{{ tomador.complemento }}</Complemento>
+                     <Bairro>{{ tomador.bairro }}</Bairro>
+                     <CodigoMunicipio>{{ tomador.cidade }}</CodigoMunicipio>
+                     <Uf>{{ tomador.uf }}</Uf>
+                     <Cep>{{ tomador.cep }}</Cep>
+                 </Endereco>
+                {% endif %}
+                {% if tomador.email|length > 0 %}
+                 <Contato>
+                     {% if tomador.telefone|length > 0 %}
+                     <Telefone>{{ tomador.telefone }}</Telefone>
+                     {% endif %}
+                     {% if tomador.email|length > 0 %}
+                     <Email>{{ tomador.email }}</Email>
+                     {% endif %}
+                 </Contato>
+                {% endif %}
+             </Tomador>
+            {% endif %}
+            <OptanteSimplesNacional>{{optante_simples}}</OptanteSimplesNacional>
+            <IncentivoFiscal>{{incentivo_fiscal}}</IncentivoFiscal>
+        </InfDeclaracaoPrestacaoServico>
+    </Rps>
+</GerarNfseEnvio>
