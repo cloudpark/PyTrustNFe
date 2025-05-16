@@ -89,7 +89,7 @@ class Signer(object):
                 parent.append(signature)
         return etree.tostring(signed_root).decode("utf-8")
 
-    def sign_xml_webiss(self, xml, reference, cert, key, index):
+    def sign_xml_new(self, xml, reference, cert, key, index):
         xml_element = etree.fromstring(xml)
         for element in xml_element.iter("*"):
             if element.text is not None and not element.text.strip():
@@ -111,4 +111,4 @@ class Signer(object):
             if element_signed is not None and signature is not None:
                 parent = element_signed.getparent()
                 parent.append(signature)
-        return etree.tostring(signed_root, encoding="utf-8", xml_declaration=True, pretty_print=False).decode("utf-8")
+        return etree.tostring(signed_root, encoding="utf-8", xml_declaration=False, pretty_print=False).decode("utf-8")
