@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-# © 2016 Danimar Ribeiro, Trustcode
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
 import os
 import suds
 from pytrustnfe.xml import render_xml, sanitize_response
@@ -12,15 +8,7 @@ from pytrustnfe.nfse.assinatura import Signer
 
 def _render(certificado, method, **kwargs):
     path = os.path.join(os.path.dirname(__file__), 'templates')
-    xml_send = render_xml(path, '%s.xml' % method, True, **kwargs)
-
-    reference = ''
-    if method == 'RecepcionarLoteRpsV3':
-        reference = 'rps%s' % kwargs['nfse']['lista_rps'][0]['numero']
-
-    # signer = Assinatura(certificado.pfx, certificado.password)
-    # xml_send = signer.assina_xml(xml_send, reference)
-    return xml_send
+    return render_xml(path, '%s.xml' % method, True, **kwargs)
 
 
 def _send(certificado, method, **kwargs):
@@ -43,20 +31,18 @@ def _send(certificado, method, **kwargs):
             body_rps = render_xml(path, 'Rps.xml', False, **rps)
             body = body.replace(f"rps_{rps['numero']}_rps", body_rps.decode('utf-8'))
 
-        # Assina o Lote
-        body = signer.sign_xml_new(body.encode('utf-8'), "L1", cert_content, key_content, 0)
+        body = signer.sign_xml_ginfes(body.encode('utf-8'), "L1", cert_content, key_content, 0)
     else:
-        body = signer.sign_xml_new(body.encode('utf-8'), None, cert_content, key_content, 0)
+        body = signer.sign_xml_ginfes(body.encode('utf-8'), None, cert_content, key_content, 0)
 
     client = get_authenticated_client(base_url, cert, key)
     client.set_options(location="https://producao.ginfes.com.br/ServiceGinfesImpl")
     try:
-        # xml_send = kwargs['xml']
         header = '<ns2:cabecalho xmlns:ns2="http://www.ginfes.com.br/cabecalho_v03.xsd" versao="3"><versaoDados>3</versaoDados></ns2:cabecalho>' #noqa
         response = getattr(client.service, method)(header, body).encode('utf-8')
     except suds.WebFault as e:
         return {
-            'sent_xml': xml_send,
+            'sent_xml': body,
             'received_xml': e.fault.faultstring,
             'object': None
         }

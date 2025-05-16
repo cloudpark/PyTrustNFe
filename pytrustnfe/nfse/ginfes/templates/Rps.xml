@@ -13,23 +13,16 @@
         <tipos:Servico>
             <tipos:Valores>
                 <tipos:ValorServicos>{{ valor_servico }}</tipos:ValorServicos>
-                <tipos:ValorDeducoes>{{ valor_deducao }}</tipos:ValorDeducoes>
-                <tipos:ValorPis>{{ valor_pis }}</tipos:ValorPis>
-                <tipos:ValorCofins>{{ valor_cofins }}</tipos:ValorCofins>
-                <tipos:ValorInss>{{ valor_inss }}</tipos:ValorInss>
-                <tipos:ValorIr>{{ valor_ir }}</tipos:ValorIr>
-                <tipos:ValorCsll>{{ valor_csll }}</tipos:ValorCsll>
                 <tipos:IssRetido>{{ iss_retido }}</tipos:IssRetido>
                 <tipos:ValorIss>{{ valor_iss }}</tipos:ValorIss>
                 <tipos:ValorIssRetido>{{ valor_iss_retido }}</tipos:ValorIssRetido>
-                <tipos:OutrasRetencoes>{{ outras_retencoes }}</tipos:OutrasRetencoes>
                 <tipos:BaseCalculo>{{ base_calculo }}</tipos:BaseCalculo>
                 <tipos:Aliquota>{{ aliquota_issqn }}</tipos:Aliquota>
                 <tipos:ValorLiquidoNfse>{{ valor_liquido_nfse }}</tipos:ValorLiquidoNfse>
             </tipos:Valores>
             <tipos:ItemListaServico>{{ codigo_servico }}</tipos:ItemListaServico>
             <tipos:CodigoTributacaoMunicipio>{{ codigo_tributacao_municipio }}</tipos:CodigoTributacaoMunicipio>
-            <tipos:Discriminacao>Teste teste teste</tipos:Discriminacao>
+            <tipos:Discriminacao>{{descricao}}</tipos:Discriminacao>
             <tipos:CodigoMunicipio>{{ codigo_municipio }}</tipos:CodigoMunicipio>
         </tipos:Servico>
         <tipos:Prestador>
