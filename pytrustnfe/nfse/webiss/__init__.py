@@ -29,7 +29,9 @@ def _validate(method, xml):
 
 def _send(certificado, method, **kwargs):
     path = os.path.join(os.path.dirname(__file__), 'templates')
-    url = 'https://aracajuse.webiss.com.br/ws/nfse.asmx?wsdl'
+
+    city_desc = kwargs['city_desc']
+    url = f'https://{city_desc}.webiss.com.br/ws/nfse.asmx?wsdl'
 
     xml_send = render_xml(path, '%s.xml' % method, False, **kwargs)
     body = xml_send.decode("utf-8")
@@ -53,7 +55,7 @@ def _send(certificado, method, **kwargs):
     body = signer.sign_xml_webiss(body.encode('utf-8'), "R1", cert_content, key_content, 0)
 
     client = get_authenticated_client(url, cert, key)
-    client.set_options(location="https://aracajuse.webiss.com.br/ws/nfse.asmx")
+    client.set_options(location=f"https://{city_desc}.webiss.com.br/ws/nfse.asmx")
     cabec = '<cabecalho versao="2.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.abrasf.org.br/nfse.xsd"><versaoDados>2.02</versaoDados></cabecalho>'
 
     response = getattr(client.service, method)(cabec, body).encode('utf-8')

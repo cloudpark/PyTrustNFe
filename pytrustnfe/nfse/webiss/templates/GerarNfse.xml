@@ -22,7 +22,7 @@
                 <Discriminacao>{{descricao}}</Discriminacao>
                 <CodigoMunicipio>{{ codigo_municipio }}</CodigoMunicipio>
                 <ExigibilidadeISS>{{exigibilidade_iss}}</ExigibilidadeISS>
-                <MunicipioIncidencia>2800308</MunicipioIncidencia>
+                <MunicipioIncidencia>{{municipio_incidencia}}</MunicipioIncidencia>
             </Servico>
             <Prestador>
                 <CpfCnpj>
